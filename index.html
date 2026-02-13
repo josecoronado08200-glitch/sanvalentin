@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>San Valentín 💖</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3,#ffd3e0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  border-radius: 25px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  animation: fade 1s ease;
+}
+
+.main-photo {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  border: 3px solid rgba(255,255,255,0.7);
+}
+
+h1 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+p {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+
+button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background: #ff3366;
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background: white;
+  color: #ff3366;
+  position: relative;
+}
+
+#final {
+  display: none;
+  animation: zoomIn 1.2s ease forwards;
+}
+
+
+#final a {
+  display: inline-block;
+  margin-top: 20px;
+  background: linear-gradient(135deg,#ff3366,#ff6aa2);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(255,51,102,0.6);
+  animation: zoomIn 1.2s ease forwards;
+}
+
+
+/* Corazones */
+.heart {
+  position: fixed;
+  top: -20px;
+  font-size: 20px;
+  animation: fall linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+@keyframes fade {
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+  from {opacity:0; transform:scale(0.9);}
+  to {opacity:1; transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- CAMBIA SOLO EL SRC -->
+  <img src="foto.jpg" class="main-photo">
+
+  <div id="question">
+
+    <h1>💘 Mi amor 💘</h1>
+
+    <p>¿Quieres ser mi San Valentín para siempre? 💖</p>
+
+    <div class="buttons">
+
+      <button id="yesBtn">Sí 💕</button>
+      <button id="noBtn">No 😢</button>
+
+    </div>
+
+  </div>
+
+  <div id="final">
+	<p id="contador" style="margin-top:15px;font-size:1.1rem;"></p>
+
+
+    <h1>💞 Te amo 💞</h1>
+
+    <p>
+      Gracias por hacer mi vida feliz.<br>
+      Eres mi todo. <br>
+      Gracias por estar conmigo cada dia. <br> 
+                   💖17-10-2023💖
+    </p>
+
+    <a href="https://www.youtube.com/watch?v=06Cwz1oUFV4&t=169s" target="_blank">
+
+      🎵 Nuestra canción 🎵
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+
+/* Botón NO que se mueve */
+
+const noBtn = document.getElementById("noBtn");
+const container = document.querySelector(".container");
+
+function moveNo() {
+
+  const maxX = container.clientWidth - noBtn.offsetWidth;
+  const maxY = container.clientHeight - noBtn.offsetHeight;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.position = "absolute";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+/* Contador de días juntos */
+
+function calcularDias() {
+
+  // CAMBIA ESTA FECHA (AAAA, MM-1, DD)
+  const inicio = new Date(2023, 9, 17); // 14 Feb 2024
+
+  const hoy = new Date();
+
+  const diferencia = hoy - inicio;
+
+  const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+
+  document.getElementById("contador").innerText =
+    "💕 Llevamos juntos " + dias + " días 💕";
+}
+
+calcularDias();
+
+/* Botón SI */
+
+document.getElementById("yesBtn").addEventListener("click", ()=>{
+
+  document.getElementById("question").style.display="none";
+  document.getElementById("final").style.display="block";
+
+});
+
+
+/* Corazones */
+
+function createHeart(){
+
+  const heart = document.createElement("div");
+
+  heart.className="heart";
+  heart.innerHTML="❤️";
+
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=15+Math.random()*20+"px";
+
+  const time=4+Math.random()*5;
+  heart.style.animationDuration=time+"s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{
+    heart.remove();
+  },time*1000);
+
+}
+
+setInterval(createHeart,300);
+
+</script>
+
+</body>
+</html>
